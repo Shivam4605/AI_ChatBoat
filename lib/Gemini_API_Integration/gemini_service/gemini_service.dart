@@ -12,7 +12,7 @@ class GeminiService {
   GeminiService({required this._dio});
 
   Future<String?> geminiChatBot({required UserModel userModel}) async {
-    String url = dotenv.env['URL'] ?? '';
+    String url = 'https://api.groq.com/openai/v1/chat/completions';
 
     String userprompt =
         '''
