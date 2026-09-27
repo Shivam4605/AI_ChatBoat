@@ -1,0 +1,36 @@
+workflows:
+  android-build:
+    name: Flutter Android CI
+
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+
+    environment:
+      flutter: stable
+
+    scripts:
+      - name: Create .env file
+        script: |
+          cat > .env <<EOF
+          GROQ_API_KEY=$GROQ_API_KEY
+          GEMINI_API_KEY=$GEMINI_API_KEY
+          EOF
+
+      - name: Install dependencies
+        script: flutter pub get
+
+      - name: Analyze project
+        script: flutter analyze
+
+      - name: Run Flutter tests
+        script: flutter test
+
+      - name: Build Release APK
+        script: flutter build apk --release
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
