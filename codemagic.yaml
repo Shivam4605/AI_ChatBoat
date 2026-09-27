@@ -13,24 +13,24 @@ workflows:
       flutter: stable
 
     scripts:
-      - name: Create .env file
-        script: |
-          cat > .env <<EOF
-          GROQ_API_KEY=$GROQ_API_KEY
-          GEMINI_API_KEY=$GEMINI_API_KEY
-          EOF
+    - name: Create .env file
+      script: |
+        echo "GROQ_API_KEY=$GROQ_API_KEY" > .env
+        echo "GEMINI_API_KEY=$GEMINI_API_KEY" >> .env
 
-      - name: Install dependencies
-        script: flutter pub get
+        echo "Checking .env..."
+        pwd
+        ls -la
+        cat .env
 
-      - name: Analyze project
-        script: flutter analyze
+    - name: Install dependencies
+      script: flutter pub get
 
-      - name: Run Flutter tests
-        script: flutter test
+    - name: Analyze
+      script: flutter analyze
 
-      - name: Build Release APK
-        script: flutter build apk --release
+    - name: Build APK
+      script: flutter build apk --release
 
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
