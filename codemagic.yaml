@@ -2,6 +2,9 @@ workflows:
   android-build:
     name: Flutter Android CI
 
+    environment:
+      flutter: stable
+
     triggering:
       events:
         - push
@@ -9,28 +12,22 @@ workflows:
         - pattern: main
           include: true
 
-    environment:
-      flutter: stable
-
     scripts:
-    - name: Create .env file
-      script: |
-        echo "GROQ_API_KEY=$GROQ_API_KEY" > .env
-        echo "GEMINI_API_KEY=$GEMINI_API_KEY" >> .env
+      - name: Create .env
+        script: |
+          echo "GROQ_API_KEY=$GROQ_API_KEY" > .env
+          echo "GEMINI_API_KEY=$GEMINI_API_KEY" >> .env
+          ls -la
+          cat .env
 
-        echo "Checking .env..."
-        pwd
-        ls -la
-        cat .env
+      - name: Install packages
+        script: flutter pub get
 
-    - name: Install dependencies
-      script: flutter pub get
+      - name: Analyze
+        script: flutter analyze
 
-    - name: Analyze
-      script: flutter analyze
-
-    - name: Build APK
-      script: flutter build apk --release
+      - name: Build Release APK
+        script: flutter build apk --release
 
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
