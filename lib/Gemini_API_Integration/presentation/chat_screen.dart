@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
-  const ChatScreen({super.key});
+  const new({super.key});
 
   @override
   ConsumerState<ChatScreen> createState() => _ChatScreenState();
@@ -58,7 +58,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 class ChatList extends StatefulWidget {
   final List<UserModel> data;
 
-  const ChatList({super.key, required this.data});
+  const new({super.key, required this.data});
 
   @override
   State<ChatList> createState() => _ChatListState();
@@ -172,7 +172,7 @@ class _ChatListState extends State<ChatList> {
 class ChatTextField extends ConsumerWidget {
   final TextEditingController chatController;
 
-  const ChatTextField({super.key, required this.chatController});
+  const new({super.key, required this.chatController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
